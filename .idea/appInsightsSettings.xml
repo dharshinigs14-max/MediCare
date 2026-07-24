@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.dharshini.medicare" />
+                  <option name="mobileSdkAppId" value="1:100282551515:android:0375cc383c358ccbbc50fe" />
+                  <option name="projectId" value="medicare-2548d" />
+                  <option name="projectNumber" value="100282551515" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
