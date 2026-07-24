@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="16dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/welcomeText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Welcome to MediCare"
+        android:textColor="#212121"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="24dp"
+        android:text="Today's Medicines"
+        android:textColor="#42A5F5"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/noMedicinesText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No medicines added yet."
+        android:textColor="#757575"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginTop="32dp" />
+
+    <Button
+        android:id="@+id/addMedicineButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="+ Add Medicine"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>
