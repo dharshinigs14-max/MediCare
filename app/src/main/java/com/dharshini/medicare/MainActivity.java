@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import com.dharshini.medicare.activity.MedicineHistoryActivity;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -46,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
                 );
             }
         }
+        Button btnViewHistory = findViewById(R.id.btnViewHistory);
+        btnViewHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MedicineHistoryActivity.class);
+            startActivity(intent);
+        });
 
         db = FirebaseFirestore.getInstance();
         recyclerMedicines = findViewById(R.id.recyclerMedicines);

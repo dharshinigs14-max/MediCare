@@ -36,6 +36,7 @@
         <receiver
             android:name=".NotificationActionReceiver"
             android:exported="false" />
+        <activity android:name=".activity.MedicineHistoryActivity" />
     </application>
 
 </manifest>

@@ -39,5 +39,13 @@
         android:text="+ Add Medicine"
         android:backgroundTint="#1976D2"
         android:textColor="#FFFFFF" />
+    <Button
+        android:id="@+id/btnViewHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="View Medicine History"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>
