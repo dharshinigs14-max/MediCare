@@ -24,15 +24,12 @@
         android:textColor="#42A5F5"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/noMedicinesText"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMedicines"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No medicines added yet."
-        android:textColor="#757575"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:layout_marginTop="32dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/addMedicineButton"
