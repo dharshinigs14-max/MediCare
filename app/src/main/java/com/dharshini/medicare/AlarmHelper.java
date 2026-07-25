@@ -72,4 +72,37 @@ public class AlarmHelper {
             );
         }
     }
+    public static void scheduleSnoozeReminder(
+            Context context,
+            String medicineId,
+            String medicineName
+    ) {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.add(Calendar.MINUTE, 5);
+        Intent intent = new Intent(context, MedicineReminderReceiver.class);
+
+        intent.putExtra("medicineId", medicineId);
+        intent.putExtra("medicineName", medicineName);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                medicineName.hashCode() + 100,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+                        | PendingIntent.FLAG_IMMUTABLE
+        );
+        AlarmManager alarmManager =
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        if (alarmManager != null) {
+
+            alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    pendingIntent
+            );
+        }
+
+    }
 }

@@ -24,17 +24,14 @@ public class MedicineReminderReceiver extends BroadcastReceiver {
             medicineName = "your medicine";
         }
 
-        NotificationHelper.showNotification(
-                context,
-                "Medicine Reminder",
-                "Time to take " + medicineName
-        );
-
-        saveHistoryRecord(medicineId, medicineName, scheduledTime);
+        saveHistoryRecordThenNotify(context, medicineId, medicineName, scheduledTime);
     }
 
-    private void saveHistoryRecord(String medicineId, String medicineName, String scheduledTime) {
-        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new java.util.Date());
+    private void saveHistoryRecordThenNotify(Context context, String medicineId,
+                                             String medicineName, String scheduledTime) {
+
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                .format(new java.util.Date());
 
         Map<String, Object> history = new HashMap<>();
         history.put("medicineId", medicineId);
@@ -44,8 +41,24 @@ public class MedicineReminderReceiver extends BroadcastReceiver {
         history.put("takenTime", null);
         history.put("status", "Pending");
 
+        String finalMedicineName = medicineName;
+
         FirebaseFirestore.getInstance()
                 .collection("medicine_history")
-                .add(history);
+                .add(history)
+                .addOnSuccessListener(documentReference -> {
+
+                    String medicineHistoryId = documentReference.getId();
+
+                    NotificationHelper.showNotification(
+                            context,
+                            "Medicine Reminder",
+                            "Time to take " + finalMedicineName,
+                            medicineHistoryId,
+                            medicineId,
+                            medicineName,
+                            scheduledTime
+                    );
+                });
     }
 }
