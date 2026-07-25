@@ -12,6 +12,7 @@ public class AlarmHelper {
 
     public static void scheduleMedicineReminder(
             Context context,
+            String medicineId,
             String medicineName,
             String time
     ) {
@@ -36,7 +37,9 @@ public class AlarmHelper {
 
         Intent intent = new Intent(context, MedicineReminderReceiver.class);
 
+        intent.putExtra("medicineId", medicineId);
         intent.putExtra("medicineName", medicineName);
+        intent.putExtra("scheduledTime", time);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
@@ -62,20 +65,11 @@ public class AlarmHelper {
                     calendar.getTimeInMillis(),
                     pendingIntent
             );
-            if (alarmManager != null) {
 
-                alarmManager.setExactAndAllowWhileIdle(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.getTimeInMillis(),
-                        pendingIntent
-                );
-                android.util.Log.d(
-                        "AlarmHelper",
-                        "Alarm scheduled for: " + calendar.getTime()
-                );
-
-
-            }
+            Log.d(
+                    "AlarmHelper",
+                    "Alarm scheduled for: " + calendar.getTime()
+            );
         }
     }
 }

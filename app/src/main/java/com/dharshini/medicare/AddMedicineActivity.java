@@ -114,6 +114,7 @@ public class AddMedicineActivity extends AppCompatActivity {
 
                             AlarmHelper.scheduleMedicineReminder(
                                     AddMedicineActivity.this,
+                                    medicineId,
                                     medicineName,
                                     time
                             );
@@ -143,8 +144,11 @@ public class AddMedicineActivity extends AppCompatActivity {
                         .add(medicine)
                         .addOnSuccessListener(documentReference -> {
 
+                            String newMedicineId = documentReference.getId();
+
                             AlarmHelper.scheduleMedicineReminder(
                                     AddMedicineActivity.this,
+                                    newMedicineId,
                                     medicineName,
                                     time
                             );
