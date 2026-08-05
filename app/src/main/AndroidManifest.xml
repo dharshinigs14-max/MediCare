@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
 
     <application
         android:allowBackup="true"
@@ -37,6 +39,12 @@
             android:name=".NotificationActionReceiver"
             android:exported="false" />
         <activity android:name=".activity.MedicineHistoryActivity" />
+
+        <receiver android:name=".MissedCheckReceiver" android:exported="false" />
+        <activity android:name=".activities.CaregiverActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+
     </application>
 
 </manifest>

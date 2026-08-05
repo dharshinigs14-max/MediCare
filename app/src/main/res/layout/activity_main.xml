@@ -47,5 +47,13 @@
         android:text="View Medicine History"
         android:backgroundTint="#1976D2"
         android:textColor="#FFFFFF" />
+    <Button
+        android:id="@+id/btnCaregiver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Caregiver"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="12dp"/>
 
 </LinearLayout>

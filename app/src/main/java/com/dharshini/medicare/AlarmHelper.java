@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.util.Log;
 import java.util.Calendar;
 import android.os.Build;
+import android.content.Context;
 
 public class AlarmHelper {
 
@@ -105,4 +106,44 @@ public class AlarmHelper {
         }
 
     }
+    public static void scheduleMissedCheck(
+            Context context,
+            String historyDocId,
+            String medicineName,
+            long reminderTimeMillis
+    ) {
+        Intent intent = new Intent(context, MissedCheckReceiver.class);
+        intent.putExtra("historyDocId", historyDocId);
+        intent.putExtra("medicineName", medicineName);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                historyDocId.hashCode(),
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        long triggerTime = reminderTimeMillis + (1 * 60 * 1000); // +15 minutes
+
+        AlarmManager alarmManager =
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    triggerTime,
+                    pendingIntent
+            );
+        }
+    }public static void requestExactAlarmPermission(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
+                Intent intent = new Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                intent.setData(android.net.Uri.parse("package:" + context.getPackageName()));
+                context.startActivity(intent);
+            }
+        }
+    }
+
 }

@@ -20,6 +20,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.dharshini.medicare.activities.CaregiverActivity;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -93,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
 
         });
         loadMedicines();
+        findViewById(R.id.btnCaregiver).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, CaregiverActivity.class)));
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 101);
+        }
+        AlarmHelper.requestExactAlarmPermission(this);
     }
     private void loadMedicines() {
 
@@ -145,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         loadMedicines();
     }
+
 
 
 }

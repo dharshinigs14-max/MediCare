@@ -14,6 +14,7 @@ import com.dharshini.medicare.adapter.MedicineHistoryAdapter;
 import com.dharshini.medicare.model.MedicineHistory;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,16 @@ public class MedicineHistoryActivity extends AppCompatActivity {
     }
 
     private void loadHistory() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser() != null
+                ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
+
+        if (uid == null) {
+            android.widget.Toast.makeText(this, "Not logged in", android.widget.Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         db.collection("medicine_history")
+                .whereEqualTo("uid", uid)
                 .orderBy("date", com.google.firebase.firestore.Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(this::onHistoryLoaded)

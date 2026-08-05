@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MedicineReminderReceiver extends BroadcastReceiver {
 
@@ -30,10 +31,18 @@ public class MedicineReminderReceiver extends BroadcastReceiver {
     private void saveHistoryRecordThenNotify(Context context, String medicineId,
                                              String medicineName, String scheduledTime) {
 
+        String uid = FirebaseAuth.getInstance().getCurrentUser() != null
+                ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
+
+        if (uid == null) {
+            return; // no logged-in user, nothing to attribute this history record to
+        }
+
         String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 .format(new java.util.Date());
 
         Map<String, Object> history = new HashMap<>();
+        history.put("uid", uid);
         history.put("medicineId", medicineId);
         history.put("medicineName", medicineName);
         history.put("scheduledTime", scheduledTime);
@@ -58,6 +67,13 @@ public class MedicineReminderReceiver extends BroadcastReceiver {
                             medicineId,
                             medicineName,
                             scheduledTime
+                    );
+
+                    AlarmHelper.scheduleMissedCheck(
+                            context,
+                            medicineHistoryId,
+                            finalMedicineName,
+                            System.currentTimeMillis()
                     );
                 });
     }
