@@ -44,6 +44,9 @@
         <activity android:name=".activities.CaregiverActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.RegisterActivity" />
+        <activity
+            android:name=".activity.DashboardActivity"
+            android:exported="false" />
 
     </application>
 

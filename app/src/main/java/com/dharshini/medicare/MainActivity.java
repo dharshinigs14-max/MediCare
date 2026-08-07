@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 101);
         }
         AlarmHelper.requestExactAlarmPermission(this);
+        startActivity(new Intent(this, com.dharshini.medicare.activity.DashboardActivity.class));
     }
     private void loadMedicines() {
 
